@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>User Form</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+	<script type="text/javascript" th:src="@{js/customm.js}"></script>
+
+
+
+</head>
+<body th:style="'margin-bottom: 40px;'">
+	<div th:insert="common::navbar"></div>
+
+	<div th:if=${session.msg}>
+
+		<div class="alert alert-primary" role="alert" th:text="${session.msg}">
+			
+
+
+
+		</div>
+	</div>
+
+
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-md-12">
+				<form th:action="@{/process}" method="post" th:object="${userData}">
+
+
+
+					<div class="mb-3">
+						<label for="fname" class="form-label">First Name <span th:style="'color:red'">*</span> </label> <input
+							th:value="${userData.firstName}" type="text" class="form-control field0"
+							th:classappend="${#fields.hasErrors('firstName')?'is-invalid':''}"
+							id="fname" name="firstName" onkeyup="isEmpty()">
+						<div th:each="e:${#fields.errors('firstName')}" th:text="${e}"
+							class="invalid-feedback"></div>
+
+
+					</div>
+					<div class="mb-3">
+						<label for="lname" class="form-label">Last Name <span th:style="'color:red'">*</span></label> <input
+							type="text" name="lastName" class="form-control field1" id="lname"
+							th:value="${userData.lastName}" onkeyup="isEmpty()"
+							th:classappend="${#fields.hasErrors('lastName')?'is-invalid':''}">
+						<div th:each="e:${#fields.errors('lastName')}" th:text="${e}"
+							class="invalid-feedback"></div>
+					</div>
+
+					<div class="mb-3">
+						<label for="dob" class="form-label">Date of Birth <span th:style="'color:red'">*</span></label> <input
+							type="date" class="form-control field2" id="dob" name="dob" required pattern="\d{4}-\d{2}-\d{2}" 
+							th:value="${userData.dob}" onkeyup="isEmpty()" th:classappend="${#fields.hasErrors('dob')?'is-invalid':''}">
+
+<div th:each="e:${#fields.errors('dob')}" th:text="${e}"
+							class="invalid-feedback"></div>
+					</div>
+					<div class="mb-3">
+						<label for="nationality" class="form-label">Nationality <span th:style="'color:red'">*</span></label> <input
+							type="text" class="form-control field3" id="nationality"
+							name="nationality" th:value="${userData.nationality}"
+							th:classappend="${#fields.hasErrors('nationality')?'is-invalid':''}" onkeyup="isEmpty()">
+						<div th:each="e:${#fields.errors('nationality')}" th:text="${e}"
+							class="invalid-feedback"></div>
+					</div>
+					<div class="mb-3">
+						<label for="state" class="form-label">State <span th:style="'color:red'">*</span></label> <select 
+							class="form-select field4" name="state" th:value="${userData.state}" onkeyup="isEmpty()">
+							<option th:each="e: ${state}" th:text="${e.stateName}"></option>
+							
+						</select>
+					</div>
+					<div class="mb-3">
+						<label for="city" class="form-label">City <span th:style="'color:red'">*</span></label> <input
+							type="text" class="form-control field5" id="city" name="city"
+							th:value="${userData.city}"
+							th:classappend="${#fields.hasErrors('city')?'is-invalid':''}" onkeyup="isEmpty()">
+						<div th:each="e:${#fields.errors('city')}" th:text="${e}"
+							class="invalid-feedback"></div>
+
+					</div>
+					
+
+					<div class="mb-3">
+						<label for="pin code" class="form-label">Pin Code <span th:style="'color:red'">*</span></label> <input
+							type="number" class="form-control field6" id="pincode" name="pinCode"
+							th:value="${userData.pinCode}"
+							th:classappend="${#fields.hasErrors('pinCode')?'is-invalid':''}" onkeyup="isEmpty()">
+						<div th:each="e:${#fields.errors('pinCode')}" th:text="${e}"
+							class="invalid-feedback"></div>
+
+					</div>
+
+
+
+					<button type="submit" class="btn btn-primary submitbtn" disabled="disabled" >Submit</button>
+					
+					<button type="reset" class="btn btn-primary">Reset</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>
